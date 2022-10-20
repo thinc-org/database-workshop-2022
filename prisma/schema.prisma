@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Days {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum Prefixes {
+  MR
+  MRS
+  MS
+}
+
+model Course {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  credit      Int
+  day         Days
+  time        String
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  CourseStudent CourseStudent[]
+}
+
+model Student {
+  id        Int      @id @default(autoincrement())
+  studentId String   @unique
+  prefix    Prefixes
+  firstName String
+  lastName  String
+
+  StudentBio    StudentBio?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  CourseStudent CourseStudent[]
+}
+
+model StudentBio {
+  id        Int      @id @default(autoincrement())
+  birthdate DateTime
+
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int     @unique
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  highSchoolName String
+}
+
+model CourseStudent {
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  course    Course  @relation(fields: [courseId], references: [id])
+  courseId  Int
+
+  @@id([studentId, courseId])
+}
