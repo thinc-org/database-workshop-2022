@@ -31,9 +31,9 @@ model Course {
   day         Days
   time        String
 
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  CourseStudent CourseStudent[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  students  Student[]
 }
 
 model Student {
@@ -43,10 +43,10 @@ model Student {
   firstName String
   lastName  String
 
-  StudentBio    StudentBio?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  CourseStudent CourseStudent[]
+  StudentBio StudentBio?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  courses    Course[]
 }
 
 model StudentBio {
@@ -59,13 +59,4 @@ model StudentBio {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   highSchoolName String
-}
-
-model CourseStudent {
-  student   Student @relation(fields: [studentId], references: [id])
-  studentId Int
-  course    Course  @relation(fields: [courseId], references: [id])
-  courseId  Int
-
-  @@id([studentId, courseId])
 }

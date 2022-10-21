@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
-import { routes } from './routes'
 import * as dotenv from "dotenv";
+import { courseRouter } from "./routes/course.route";
+import { studentRouter } from "./routes/student.route";
 
 dotenv.config();
 
@@ -18,8 +19,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 
-app.use('/course', routes.courseRouter)
-app.use('/student', routes.studentRouter)
+app.use('/course', courseRouter)
+app.use('/student', studentRouter)
 
 
 app.listen(port, () => {

@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { controllers } from '../controllers'
+import { createCourse, deleteCourse, getManyCourse, getOneCourse } from '../controllers/course.controller';
 
 export const courseRouter = Router()
-courseRouter.get('/', controllers.getManyCourse);
-courseRouter.get('/:id', controllers.getOneCourse);
-courseRouter.post('/', controllers.createCourse);
-courseRouter.delete('/:id', controllers.deleteCourse);
+courseRouter.get('/', getManyCourse);
+courseRouter.get('/:id', getOneCourse);
+courseRouter.post('/', createCourse);
+courseRouter.delete('/:id', deleteCourse);
 
