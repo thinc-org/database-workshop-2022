@@ -4,7 +4,7 @@ import { BioDto, UpdateBioDto } from '../dto/student_bio.dto'
 
 const getOneStudentBio = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id)
-  const bio = await prisma.studentBio.findUnique({ where: { id } })
+  const bio = await prisma.studentBio.findUnique({ where: { studentId: id } })
 
   if (bio === null) return res.status(404).json({ message: 'not found' })
 

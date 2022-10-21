@@ -16,12 +16,5 @@ export interface StudentDto {
   prefix: Prefixes
   firstName: string
   lastName: string
-  bio?: BioDto
   courses?: CourseDto[]
-}
-
-export interface BioDto {
-  id: number
-  birthdate: Date
-  highSchoolName: string
 }
