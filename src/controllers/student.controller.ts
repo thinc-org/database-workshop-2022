@@ -29,13 +29,17 @@ const getOneStudent = async (req: Request, res: Response) => {
 
 const getManyStudent = async (req: Request, res: Response) => {
   const students = await prisma.student.findMany();
-  const studentsDto: StudentDto[] = students.map(student => ({
-    id: student.id,
-    studentId: student.studentId,
-    prefix: student.prefix,
-    firstName: student.firstName,
-    lastName: student.lastName,
-  }))
+  const studentsDto: StudentsDto = {
+    total: students.length,
+    students: students.map(student => ({
+      id: student.id,
+      studentId: student.studentId,
+      prefix: student.prefix,
+      firstName: student.firstName,
+      lastName: student.lastName,
+    }))
+  }
+
   res.status(200).json(studentsDto)
 }
 

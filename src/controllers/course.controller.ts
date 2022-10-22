@@ -1,7 +1,7 @@
 import { prisma } from '../common/prisma/prisma';
 import { Request, Response } from 'express'
 import { CourseDto } from '../dto/common.dto';
-import { CreateCourseDto } from '../dto/course.dto';
+import { CoursesDto, CreateCourseDto } from '../dto/course.dto';
 
 const getOneCourse = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id)
@@ -34,14 +34,17 @@ const getOneCourse = async (req: Request, res: Response) => {
 
 const getManyCourse = async (req: Request, res: Response) => {
   const courses = await prisma.course.findMany()
-  const coursesDto: CourseDto[] = courses.map(course => ({
-    id: course.id,
-    name: course.name,
-    description: course.description,
-    credit: course.credit,
-    day: course.day,
-    time: course.time,
-  }))
+  const coursesDto: CoursesDto = {
+    total: courses.length,
+    courses: courses.map(course => ({
+      id: course.id,
+      name: course.name,
+      description: course.description,
+      credit: course.credit,
+      day: course.day,
+      time: course.time,
+    }))
+  }
   res.status(200).json(coursesDto)
 }
 
