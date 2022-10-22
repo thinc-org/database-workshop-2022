@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { prisma } from '../common/prisma/prisma'
 import { StudentDto } from '../dto/common.dto'
-import { CreateStudentDto } from '../dto/student.dto'
+import { CreateStudentDto, StudentsDto } from '../dto/student.dto'
 
 const getOneStudent = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
