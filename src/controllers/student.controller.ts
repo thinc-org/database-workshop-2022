@@ -1,3 +1,4 @@
+import { Request, Response } from 'express'
 const getOneStudent = async (req: Request, res: Response) => {
   //TODO: Fill code here
 }
